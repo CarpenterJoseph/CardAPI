@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using CardAPI.Models;
+using Microsoft.AspNetCore.Cors;
 
 namespace CardAPI.Controllers
 {
@@ -21,6 +22,7 @@ namespace CardAPI.Controllers
         }
 
         // GET: api/Cards
+        [EnableCors("Policy1")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Card>>> GetCard()
         {

@@ -26,7 +26,15 @@ namespace CardAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<GameContext>(options => 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("Policy1",
+                    builder =>
+                    {
+                        builder.WithOrigins("http://localhost:60278");
+                    });
+            });
+                services.AddDbContext<GameContext>(options => 
                 options.UseSqlServer(Configuration.GetConnectionString("CardDB")));
             services.AddControllers();
         }
@@ -42,6 +50,8 @@ namespace CardAPI
             CardData.Initialize(app);
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
